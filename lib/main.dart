@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/dao/home_dao.dart';
+import 'package:tour_app/model/common_model.dart';
+import 'package:tour_app/widget/local_nav.dart';
 import 'dart:convert';
 
 import 'model/home_model.dart';
+import 'navigator/tab_navigator.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: TabNavigator(),
     );
   }
 }
@@ -49,6 +52,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String resultString = '';
+  List<CommonModel> localNavList = [];
 
   @override
   void initState() {
@@ -76,18 +80,15 @@ class _MyHomePageState extends State<MyHomePage> {
 //        resultString = e.toString();
 //      });
 //    });
-//    try{
+    try{
       HomeModel model = await HomeDao.fetch();
-      print(model);
       setState(() {
-        resultString = json.encode(model.config);
+        localNavList = model.localNavList;
       });
       print(resultString);
-//    }catch(e) {
-//      setState(() {
-//        resultString = e.toString();
-//      });
-//    }
+    }catch(e) {
+      print(e);
+    }
 
   }
 
@@ -128,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
                 resultString
             ),
+            LocalNav(localNavList: localNavList,),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.display1,
