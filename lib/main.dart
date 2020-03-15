@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/dao/home_dao.dart';
 import 'package:tour_app/model/common_model.dart';
-import 'package:tour_app/widget/local_nav.dart';
-import 'dart:convert';
-
-import 'model/home_model.dart';
 import 'navigator/tab_navigator.dart';
 void main() => runApp(MyApp());
 
@@ -54,11 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String resultString = '';
   List<CommonModel> localNavList = [];
 
-  @override
-  void initState() {
-    super.initState();
-    loadData();
-  }
 
   void _incrementCounter() {
     setState(() {
@@ -69,27 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
-  }
-  loadData() async {
-//    HomeDao.fetch().then((result) {
-//      setState(() {
-//        resultString = json.encode(result);
-//      });
-//    }).catchError((e) {
-//      setState(() {
-//        resultString = e.toString();
-//      });
-//    });
-    try{
-      HomeModel model = await HomeDao.fetch();
-      setState(() {
-        localNavList = model.localNavList;
-      });
-      print(resultString);
-    }catch(e) {
-      print(e);
-    }
-
   }
 
   @override
@@ -129,7 +98,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
                 resultString
             ),
-            LocalNav(localNavList: localNavList,),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.display1,
