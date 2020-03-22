@@ -56,74 +56,75 @@ class _SearchBarState extends State<SearchBar> {
 
   _genNormalSearch() {
     return Container(
-      child: Row(
-        children: <Widget>[
-          _wrapTap(
-              Container(
-                  padding: EdgeInsets.fromLTRB(6, 5, 5, 5),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        '上海',
-                        style: TextStyle(color: _homeFontColor(), fontSize: 14),
-                      ),
-                      Icon(
-                        Icons.expand_more,
-                        color: _homeFontColor(),
-                        size: 22,
-                      )
-                    ],
-                  )),
-              widget.leftButtonClick),
-          Expanded(
-            flex: 1,
-            child: _inputBox(),
-          ),
-          _wrapTap(
-              Container(
-                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: Text(
-                    '搜索',
-                    style: TextStyle(color: Colors.blue, fontSize: 17),
-                  )),
-              widget.leftButtonClick),
-        ],
-      ),
+      child: Row(children: <Widget>[
+        _wrapTap(
+            Container(
+              padding: EdgeInsets.fromLTRB(6, 5, 10, 5),
+              child: widget?.hideLeft ?? false
+                  ? null
+                  : Icon(
+                Icons.arrow_back_ios,
+                color: Colors.grey,
+                size: 26,
+              ),
+            ),
+            widget.leftButtonClick),
+        Expanded(
+          flex: 1,
+          child: _inputBox(),
+        ),
+        _wrapTap(
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              child: Text(
+                '搜索',
+                style: TextStyle(color: Colors.blue, fontSize: 17),
+              ),
+            ),
+            widget.rightButtonClick)
+      ]),
     );
   }
 
   _genHomeSearch() {
     return Container(
-      child: Row(
-        children: <Widget>[
-          _wrapTap(
-              Container(
-                padding: EdgeInsets.fromLTRB(6, 5, 10, 5),
-                child: widget?.hideLeft ?? false
-                    ? null
-                    : Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.grey,
-                        size: 26,
-                      ),
+      child: Row(children: <Widget>[
+        _wrapTap(
+            Container(
+                padding: EdgeInsets.fromLTRB(6, 5, 5, 5),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      '上海',
+                      style: TextStyle(color: _homeFontColor(), fontSize: 14),
+                    ),
+                    Icon(
+                      Icons.expand_more,
+                      color: _homeFontColor(),
+                      size: 22,
+                    )
+                  ],
+                )),
+            widget.leftButtonClick),
+        Expanded(
+          flex: 1,
+          child: _inputBox(),
+        ),
+        _wrapTap(
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+              child: Icon(
+                Icons.comment,
+                color: _homeFontColor(),
+                size: 26,
               ),
-              widget.leftButtonClick),
-          Expanded(
-            flex: 1,
-            child: _inputBox(),
-          ),
-          _wrapTap(
-              Container(
-                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: Text(
-                    '搜索',
-                    style: TextStyle(color: Colors.blue, fontSize: 17),
-                  )),
-              widget.leftButtonClick),
-        ],
-      ),
+            ),
+            widget.rightButtonClick)
+      ]),
     );
   }
+
+
 
   _inputBox() {
     Color inputBoxColor;
@@ -161,7 +162,6 @@ class _SearchBarState extends State<SearchBar> {
                         fontWeight: FontWeight.w300),
                     decoration: InputDecoration(
                         contentPadding:
-                            // f
                             EdgeInsets.only(
                                 left: 5, top: -8, bottom: 12, right: 5),
                         border: InputBorder.none,
